@@ -1,866 +1,954 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>The Kartikey Kamal Gazette</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: #f5f0e8;
-  color: #1a1510;
-  font-family: 'Libre Baskerville', serif;
-  overflow-x: hidden;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-}
-:root {
-  --ink: #1a1510;
-  --ink-mid: #4a4035;
-  --ink-light: #8a7d6e;
-  --ink-faint: #c8bfb0;
-  --paper: #f5f0e8;
-  --paper-dark: #ede7d9;
-  --red: #b8281a;
-  --rule: 1.5px solid #1a1510;
-  --rule-thin: 1px solid #c8bfb0;
-  --rule-double: 3px double #1a1510;
-}
-::selection { background: var(--ink); color: var(--paper); }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--paper-dark); }
-::-webkit-scrollbar-thumb { background: var(--ink-light); }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Kartikey Kamal Gazette</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --ink-mid: #3d3d39;
+      --ink-light: #7a7a72;
+      --paper: #f5f2eb;
+      --paper-dark: #ede9e0;
+      --rule: #c8c4b8;
+      --accent: #1a1a18;
+      --ai-glow: #4a3f8a;   /* subtle violet — the "Gen AI" signature accent */
+      --ai-glow-lt: #ebe8f5;
+    }
 
-/* ── HEADER ── */
-header {
-  border-bottom: var(--rule-double);
-  padding: 0 3rem;
-  position: sticky; top: 0; z-index: 100;
-  background: var(--paper);
-}
-.weather-bar {
-  border-bottom: var(--rule-thin);
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.3rem 0;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem; letter-spacing: 0.06em; color: var(--ink-light);
-}
-.live-time { color: var(--ink-mid); }
-.masthead-main {
-  display: grid; grid-template-columns: 1fr auto 1fr;
-  align-items: center; padding: 0.6rem 0 0.5rem; gap: 1rem;
-}
-.masthead-left {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.58rem; letter-spacing: 0.06em; color: var(--ink-light); line-height: 1.6;
-}
-.masthead-title {
-  font-family: 'UnifrakturMaguntia', cursive;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  color: var(--ink); text-align: center; line-height: 1; white-space: nowrap;
-}
-.masthead-right {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.58rem; letter-spacing: 0.06em;
-  color: var(--ink-light); text-align: right; line-height: 1.6;
-}
-.nav-strip {
-  border-top: var(--rule-thin); padding: 0.4rem 0;
-  display: flex; justify-content: center;
-}
-.nav-strip a {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ink-mid); text-decoration: none;
-  padding: 0.15rem 1.2rem; border-right: var(--rule-thin);
-  transition: color 0.2s, background 0.2s;
-}
-.nav-strip a:first-child { border-left: var(--rule-thin); }
-.nav-strip a:hover { color: var(--ink); background: var(--paper-dark); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── LAYOUT ── */
-main { max-width: 1280px; margin: 0 auto; padding: 0 3rem 4rem; }
+    html { scroll-behavior: smooth; }
 
-/* shared ink divider */
-.vdivider {
-  width: 1.5px; background: var(--ink); align-self: stretch;
-}
-.vdivider-faint {
-  width: 1.5px; background: var(--ink-faint); align-self: stretch;
-}
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
 
-/* ── HERO ── */
-#hero {
-  display: grid;
-  grid-template-columns: 1fr 1.5px 1.2fr 1.5px 0.9fr;
-  padding: 2rem 0 2rem;
-  border-bottom: var(--rule);
-  align-items: start;
-}
-.hero-left  { padding-right: 2.5rem; }
-.hero-center { padding: 0 2.5rem; }
-.hero-right  { padding-left: 2.5rem; }
+    /* ── MASTHEAD ─────────────────────────────────── */
+    .masthead {
+      border-bottom: 3px double var(--ink);
+      padding: 18px 0 10px;
+      text-align: center;
+      background: var(--paper);
+    }
+    .masthead-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 32px;
+      margin-bottom: 8px;
+    }
+    .masthead-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 6vw, 58px);
+      font-weight: 900;
+      letter-spacing: -.01em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .masthead-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .masthead-rule { height: 1px; background: var(--ink); margin: 10px 0 0; }
 
-.edition-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--red); margin-bottom: 0.6rem;
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.edition-label::before { content: '■'; font-size: 0.4rem; }
-.hero-kicker {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.78rem; font-style: italic; color: var(--ink-mid); margin-bottom: 0.5rem;
-}
-.hero-headline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 900; line-height: 1; letter-spacing: -0.02em; color: var(--ink);
-  margin-bottom: 1rem;
-}
-.hero-headline em { font-style: italic; color: var(--red); }
-.hero-deck {
-  font-size: 0.82rem; line-height: 1.75; color: var(--ink-mid);
-  border-top: var(--rule-thin); padding-top: 0.8rem; margin-bottom: 1rem;
-}
-.byline {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--ink-light); display: flex; align-items: center; gap: 0.5rem;
-}
-.byline-name { color: var(--ink); font-weight: 500; }
+    /* ── NAV ──────────────────────────────────────── */
+    nav {
+      border-bottom: 1px solid var(--rule);
+      background: var(--paper);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      display: block;
+      padding: 8px 18px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-right: 1px solid var(--rule);
+      transition: background .15s, color .15s;
+    }
+    nav ul li:first-child a { border-left: 1px solid var(--rule); }
+    nav ul li a:hover { background: var(--ink); color: var(--paper); }
 
-.big-name {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900; font-style: italic;
-  font-size: clamp(4.5rem, 8vw, 7.5rem);
-  line-height: 0.88; letter-spacing: -0.03em; color: var(--ink);
-}
-.big-name-sub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--ink-light); margin-top: 0.8rem;
-  border-top: var(--rule-thin); padding-top: 0.6rem;
-}
-.hero-stat { margin-top: 1.2rem; }
-.hero-stat-n {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem; font-weight: 900; color: var(--red); line-height: 1;
-}
-.hero-stat-l {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ink-light); margin-top: 0.2rem;
-}
+    /* ── BREAKING BANNER ──────────────────────────── */
+    .breaking-banner {
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+      padding: 6px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .breaking-banner span {
+      color: #c9b8ff;
+      margin-right: 10px;
+    }
 
-.skills-brief { background: var(--ink); color: var(--paper); padding: 1.2rem; margin-bottom: 1rem; }
-.skills-brief-head {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink-faint); margin-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 0.4rem;
-}
-.skills-brief ul { list-style: none; }
-.skills-brief li {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem; line-height: 2; color: #d4cec4;
-  display: flex; justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.skills-brief li span { color: #fff; font-weight: 500; }
+    /* ── LAYOUT ───────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-.index-box { border: var(--rule-thin); padding: 0.9rem; }
-.index-box-head {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  margin-bottom: 0.6rem; border-bottom: var(--rule-thin); padding-bottom: 0.4rem;
-}
-.index-item {
-  display: flex; align-items: baseline;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.62rem; line-height: 1.9; color: var(--ink-mid);
-  border-bottom: 1px dotted var(--ink-faint);
-}
-.index-item a { color: inherit; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
-.index-item a:hover { color: var(--red); }
-.dotline { flex: 1; border-bottom: 1px dotted var(--ink-faint); margin: 0 0.3rem 0.15rem; min-width: 10px; }
-.index-pg { color: var(--ink-light); white-space: nowrap; }
+    section { padding: 48px 0; }
+    section + section { border-top: 1px solid var(--rule); }
 
-/* ── PULL BAR ── */
-.pull-bar {
-  border-top: var(--rule); border-bottom: var(--rule);
-  padding: 0.9rem 0; margin: 1.5rem 0;
-  display: flex; align-items: center; gap: 0;
-}
-.pull-stat {
-  text-align: center; min-width: 110px; padding: 0 2rem;
-}
-.pull-stat + .pull-stat { border-left: var(--rule-thin); }
-.pull-quote-wrap {
-  flex: 1; padding: 0 2rem;
-  border-left: var(--rule-thin); border-right: var(--rule-thin);
-}
-.pull-quote-wrap blockquote {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
-  font-style: italic; color: var(--ink); text-align: center;
-}
-.pull-quote-wrap blockquote::before { content: '\201C'; color: var(--red); font-size: 2em; line-height: 0; vertical-align: -0.4em; margin-right: 0.1em; }
-.pull-quote-wrap blockquote::after  { content: '\201D'; color: var(--red); font-size: 2em; line-height: 0; vertical-align: -0.4em; margin-left: 0.1em; }
-.pull-stat-n { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; color: var(--red); line-height: 1; }
-.pull-stat-l { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-light); margin-top: 0.2rem; }
+    .section-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 6px;
+      margin-bottom: 28px;
+    }
+    .section-eyebrow em {
+      font-family: 'IBM Plex Mono', monospace;
+      font-style: normal;
+      float: right;
+      color: var(--ink-light);
+    }
 
-/* ── SECTION HEADS ── */
-.section-head {
-  display: flex; align-items: center; gap: 1rem;
-  border-top: var(--rule); border-bottom: var(--rule-thin);
-  padding: 0.35rem 0; margin-bottom: 1.8rem;
-}
-.section-head-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--ink); white-space: nowrap;
-}
-.section-head-rule { flex: 1; height: 1px; background: var(--ink-faint); }
-.section-head-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.1em; color: var(--ink-light); white-space: nowrap; }
+    /* ── HERO ─────────────────────────────────────── */
+    #hero { padding: 40px 0 36px; }
 
-/* ── ABOUT ── */
-#about { padding: 2rem 0; border-bottom: var(--rule); }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.5px 1fr 1.5px 1fr;
-  align-items: start;
-}
-.about-col { padding: 0 2.5rem; }
-.about-col:first-child { padding-left: 0; }
-.about-col:last-child  { padding-right: 0; }
-.about-col p {
-  font-size: 0.82rem; line-height: 1.85; color: var(--ink-mid);
-  margin-bottom: 0.8rem; text-align: justify; hyphens: auto;
-}
-.about-col p:first-of-type::first-letter {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem; font-weight: 900; float: left;
-  line-height: 0.75; margin: 0.1em 0.12em 0 0; color: var(--ink);
-}
-.fact-box { background: var(--paper-dark); border: var(--rule-thin); padding: 1rem; margin-top: 1rem; }
-.fact-box-head { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
-.fact-row {
-  display: flex; justify-content: space-between;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.62rem; line-height: 1.8; color: var(--ink-mid);
-  border-bottom: 1px dotted var(--ink-faint);
-}
-.fact-row .fv { color: var(--ink); font-weight: 500; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--ink);
+    }
+    .hero-left {
+      padding: 32px 36px;
+      border-right: 1px solid var(--ink);
+    }
+    .hero-right {
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hero-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ai-glow);
+      margin-bottom: 12px;
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 900;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--ai-glow);
+    }
+    .hero-deck {
+      font-size: 16px;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      max-width: 420px;
+    }
+    .hero-byline {
+      margin-top: 24px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--ink-light);
+      text-transform: uppercase;
+    }
 
-/* ── SKILLS ── */
-#skills { padding: 2rem 0; border-bottom: var(--rule); }
-.skills-broadsheet {
-  display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 1px; background: var(--ink-faint); border: 1px solid var(--ink-faint);
-}
-.skill-cell {
-  background: var(--paper); padding: 1.2rem 1rem;
-  transition: background 0.2s; position: relative; overflow: hidden;
-}
-.skill-cell:hover { background: var(--paper-dark); }
-.skill-cell:hover .sc-num { opacity: 1; }
-.sc-num {
-  position: absolute; bottom: 0.5rem; right: 0.6rem;
-  font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900;
-  color: rgba(26,21,16,0.04); line-height: 1;
-  opacity: 0; transition: opacity 0.3s; pointer-events: none; user-select: none;
-}
-.sc-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
-.sc-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.7rem; line-height: 1.2; }
-.sc-items { display: flex; flex-direction: column; gap: 0.2rem; }
-.sc-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink-mid); display: flex; align-items: center; gap: 0.4rem; }
-.sc-item::before { content: '—'; color: var(--ink-faint); font-size: 0.5rem; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 24px;
+    }
+    .stat-cell {
+      background: var(--paper);
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--ai-glow);
+    }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-top: 4px;
+    }
 
-/* ── PROJECTS ── */
-#projects { padding: 2rem 0; border-bottom: var(--rule); }
-.projects-broadsheet {
-  display: grid; grid-template-columns: 1.5fr 1.5px 1fr;
-  align-items: start;
-}
-.project-main { padding-right: 2.5rem; }
-.project-sidebar { padding-left: 2.5rem; }
-.project-feature { border-bottom: var(--rule-thin); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
-.project-feature:last-child { border-bottom: none; margin-bottom: 0; }
-.proj-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
-.proj-headline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-  font-weight: 900; line-height: 1.1; color: var(--ink); margin-bottom: 0.6rem;
-  transition: color 0.2s;
-}
-.proj-headline:hover { color: var(--red); }
-.proj-deck { font-size: 0.8rem; line-height: 1.8; color: var(--ink-mid); text-align: justify; margin-bottom: 0.8rem; }
-.proj-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-.proj-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.06em; color: var(--ink-light); border: var(--rule-thin); padding: 0.15rem 0.5rem; }
-.proj-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red); transition: opacity 0.2s; }
-.proj-link:hover { opacity: 0.6; }
+    .hero-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 9px 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      transition: background .15s, color .15s;
+    }
+    .btn:hover { background: var(--ink); color: var(--paper); }
+    .btn-filled {
+      background: var(--ai-glow);
+      color: var(--paper);
+      border-color: var(--ai-glow);
+    }
+    .btn-filled:hover { background: #3a2f7a; border-color: #3a2f7a; color: var(--paper); }
 
-.sidebar-ad { border: var(--rule); padding: 1.2rem; text-align: center; margin-bottom: 1.2rem; }
-.sidebar-ad::before { content: 'ADVERTISEMENT'; font-family: 'IBM Plex Mono', monospace; font-size: 0.45rem; letter-spacing: 0.2em; color: var(--ink-faint); display: block; margin-bottom: 0.8rem; }
-.ad-headline { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 900; font-style: italic; color: var(--ink); line-height: 1.2; margin-bottom: 0.5rem; }
-.ad-body { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink-mid); line-height: 1.7; margin-bottom: 0.8rem; }
-.ad-cta { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 0.4rem 1rem; text-decoration: none; transition: background 0.2s; }
-.ad-cta:hover { background: var(--red); }
+    /* ── AI BADGE ─────────────────────────────────── */
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ai-glow-lt);
+      border: 1px solid var(--ai-glow);
+      padding: 6px 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ai-glow);
+      margin-bottom: 20px;
+    }
+    .ai-badge::before { content: '✦'; font-size: 12px; }
 
-/* ── EXPERIENCE ── */
-#experience { padding: 2rem 0; border-bottom: var(--rule); }
-.exp-grid {
-  display: grid; grid-template-columns: 1fr 1.5px 1fr;
-  align-items: start;
-}
-.exp-col { padding: 0 2.5rem; }
-.exp-col:first-child { padding-left: 0; }
-.exp-col:last-child  { padding-right: 0; }
-.exp-entry { margin-bottom: 1.8rem; border-bottom: var(--rule-thin); padding-bottom: 1.4rem; }
-.exp-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.exp-dateline { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
-.exp-role { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 0.15rem; }
-.exp-org { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; color: var(--ink-light); margin-bottom: 0.7rem; font-style: italic; }
-.exp-body { font-size: 0.78rem; line-height: 1.8; color: var(--ink-mid); }
-.exp-body ul { padding-left: 1rem; }
-.exp-body li { margin-bottom: 0.25rem; }
+    /* ── ABOUT ────────────────────────────────────── */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 48px;
+    }
+    #about p { margin-bottom: 14px; color: var(--ink-mid); }
+    #about p:last-child { margin-bottom: 0; }
 
-/* ── HACKATHONS ── */
-#achievements { padding: 2rem 0; border-bottom: var(--rule); }
-.hack-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: var(--ink); border: var(--rule);
-}
-.hack-cell {
-  background: var(--paper); padding: 1.8rem 1.5rem;
-  transition: background 0.22s; position: relative; overflow: hidden;
-}
-.hack-cell:hover { background: var(--ink); }
-.hack-cell:hover .hc-name,
-.hack-cell:hover .hc-body { color: var(--paper); }
-.hack-cell:hover .hc-label { color: #b8a090; }
-.hack-cell:hover .hc-num { color: rgba(245,240,232,0.07); }
-.hc-num { position: absolute; right: 1rem; bottom: 0.5rem; font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; color: rgba(26,21,16,0.05); line-height: 1; transition: color 0.22s; pointer-events: none; }
-.hc-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; transition: color 0.22s; }
-.hc-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; transition: color 0.22s; }
-.hc-body { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink-light); line-height: 1.6; transition: color 0.22s; }
+    .quick-facts {
+      border: 1px solid var(--rule);
+    }
+    .quick-facts-header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .fact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 14px;
+    }
+    .fact-row:last-child { border-bottom: none; }
+    .fact-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .fact-val { color: var(--ink); font-size: 14px; }
 
-/* ── CONTACT ── */
-#contact { padding: 2rem 0 0; }
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1.5px 1fr;
-  align-items: start;
-}
-.contact-left  { padding-right: 3rem; }
-.contact-right { padding-left: 3rem; }
-.contact-headline { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem; }
-.contact-headline em { font-style: italic; color: var(--red); }
-.contact-deck { font-size: 0.82rem; line-height: 1.85; color: var(--ink-mid); margin-bottom: 1.5rem; }
-.contact-entries { display: flex; flex-direction: column; }
-.contact-entry {
-  display: flex; align-items: baseline; gap: 1rem;
-  border-bottom: var(--rule-thin); padding: 0.85rem 0;
-  text-decoration: none; color: inherit; transition: padding-left 0.2s;
-}
-.contact-entry:hover { padding-left: 0.5rem; }
-.contact-entry:hover .ce-val { color: var(--red); }
-.ce-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); min-width: 80px; flex-shrink: 0; }
-.ce-val { font-family: 'Libre Baskerville', serif; font-size: 0.8rem; color: var(--ink); transition: color 0.2s; }
-.classified { border: var(--rule); padding: 1.2rem; background: var(--paper-dark); }
-.classified-head { font-family: 'Playfair Display', serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; border-bottom: var(--rule-thin); padding-bottom: 0.5rem; margin-bottom: 0.8rem; }
-.classified-body { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; line-height: 1.8; color: var(--ink-mid); columns: 2; column-gap: 1.5rem; }
+    /* ── SKILLS ───────────────────────────────────── */
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .skill-block {
+      background: var(--paper);
+      padding: 22px 24px;
+    }
+    .skill-block-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ai-glow);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .skill-block ul {
+      list-style: none;
+    }
+    .skill-block ul li {
+      font-size: 14px;
+      color: var(--ink-mid);
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-block ul li::before {
+      content: '—';
+      color: var(--rule);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .skill-block.featured { background: var(--ai-glow-lt); }
+    .skill-block.featured .skill-block-label { color: var(--ai-glow); border-color: #c9b8ff; }
+    .skill-block.featured ul li { color: var(--ai-glow); }
+    .skill-block.featured ul li::before { color: #c9b8ff; }
 
-/* ── FOOTER ── */
-footer {
-  border-top: var(--rule-double); margin-top: 2rem;
-  padding: 1rem 3rem;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem; letter-spacing: 0.1em; color: var(--ink-light); }
-.footer-motto { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.7rem; color: var(--ink-light); }
+    /* ── PROJECTS ─────────────────────────────────── */
+    #projects .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .project-card {
+      background: var(--paper);
+      padding: 26px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .project-tag.ai { color: var(--ai-glow); }
+    .project-tag.web { color: var(--ink-light); }
+    .project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .project-desc {
+      font-size: 14px;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .project-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .chip {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--rule);
+      color: var(--ink-light);
+    }
+    .chip.ai-chip { border-color: var(--ai-glow); color: var(--ai-glow); }
+    .project-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color .15s, border-color .15s;
+      align-self: flex-start;
+    }
+    .project-link:hover { color: var(--ai-glow); border-color: var(--ai-glow); }
+    .project-card.featured-proj { background: var(--ai-glow-lt); }
 
-/* ── MICRO DETAILS ── */
-[data-note] { border-bottom: 1px dotted var(--ink-faint); cursor: help; position: relative; }
-[data-note]:hover::after {
-  content: attr(data-note);
-  position: absolute; left: 0; bottom: 120%;
-  background: var(--ink); color: var(--paper);
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem;
-  padding: 0.3rem 0.6rem; white-space: nowrap; pointer-events: none; z-index: 50;
-}
+    /* ── EDUCATION ────────────────────────────────── */
+    #education .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .edu-card {
+      background: var(--paper);
+      padding: 26px 28px;
+    }
+    .edu-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 8px;
+    }
+    .edu-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .edu-inst {
+      font-size: 14px;
+      color: var(--ink-mid);
+      margin-bottom: 10px;
+    }
+    .edu-note {
+      font-size: 13px;
+      color: var(--ink-light);
+      font-style: italic;
+    }
 
-/* ── REVEAL ── */
-.reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.55s ease, transform 0.55s ease; }
-.reveal.show { opacity: 1; transform: none; }
-.rd1{transition-delay:.05s} .rd2{transition-delay:.10s} .rd3{transition-delay:.15s}
-.rd4{transition-delay:.20s} .rd5{transition-delay:.25s} .rd6{transition-delay:.30s}
+    /* ── HACKATHONS ───────────────────────────────── */
+    #hackathons .hack-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .hack-item {
+      background: var(--paper);
+      padding: 22px 24px;
+    }
+    .hack-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 8px;
+    }
+    .hack-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .hack-desc {
+      font-size: 13px;
+      color: var(--ink-mid);
+    }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  main, header { padding-left: 1.5rem; padding-right: 1.5rem; }
-  #hero { grid-template-columns: 1fr 1.5px 1.2fr; }
-  .hero-right { display: none; }
-  /* hide second vdivider in hero */
-  #hero .vdivider:last-of-type { display: none; }
-  .about-grid { grid-template-columns: 1fr 1.5px 1fr; }
-  .about-col:last-child { display: none; }
-  .about-grid .vdivider-faint:last-of-type { display: none; }
-  .skills-broadsheet { grid-template-columns: repeat(3, 1fr); }
-  .projects-broadsheet { grid-template-columns: 1fr; }
-  .project-main { padding-right: 0; }
-  .projects-broadsheet .vdivider { display: none; }
-  .project-sidebar { padding-left: 0; padding-top: 1.5rem; border-top: var(--rule-thin); display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .exp-grid { grid-template-columns: 1fr; }
-  .exp-grid .vdivider { display: none; }
-  .exp-col { padding: 0; margin-bottom: 2rem; }
-  .exp-col:last-child { margin-bottom: 0; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .contact-grid .vdivider { display: none; }
-  .contact-left { padding-right: 0; margin-bottom: 2.5rem; }
-  .contact-right { padding-left: 0; }
-  footer { padding: 1rem 1.5rem; }
-}
-@media (max-width: 700px) {
-  .masthead-title { font-size: 1.4rem; }
-  .masthead-left, .masthead-right { display: none; }
-  .nav-strip { overflow-x: auto; justify-content: flex-start; }
-  #hero { grid-template-columns: 1fr; }
-  #hero .vdivider { display: none; }
-  .hero-left { padding-right: 0; }
-  .hero-center { padding: 0; }
-  .hero-right { display: none; }
-  .about-grid { grid-template-columns: 1fr; }
-  .about-grid .vdivider-faint { display: none; }
-  .about-col { padding: 0; margin-bottom: 1.5rem; }
-  .skills-broadsheet { grid-template-columns: repeat(2, 1fr); }
-  .hack-grid { grid-template-columns: 1fr; }
-  .pull-bar { flex-direction: column; gap: 1rem; }
-  .pull-stat { min-width: unset; padding: 0; border: none !important; }
-  .pull-quote-wrap { padding: 0.5rem 0; border: none; }
-}
-</style>
+    /* ── CONTACT ──────────────────────────────────── */
+    #contact .contact-box {
+      border: 1px solid var(--ink);
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+    }
+    .contact-left {
+      padding: 36px 40px;
+      border-right: 1px solid var(--ink);
+    }
+    .contact-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .contact-headline em { font-style: italic; color: var(--ai-glow); }
+    .contact-deck {
+      font-size: 15px;
+      color: var(--ink-mid);
+      margin-bottom: 24px;
+      max-width: 380px;
+    }
+    .contact-right {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 14px;
+      transition: color .15s;
+    }
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { color: var(--ai-glow); }
+    .contact-link-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      border-top: 3px double var(--ink);
+      padding: 20px 0;
+      text-align: center;
+    }
+    .footer-inner {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-motto {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink-mid);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* ── PULLQUOTE ────────────────────────────────── */
+    .pullquote {
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding: 20px 0;
+      margin: 32px 0;
+      text-align: center;
+    }
+    .pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .pullquote p em { color: var(--ai-glow); font-style: normal; font-weight: 700; }
+
+    /* ── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 780px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-left { border-right: none; border-bottom: 1px solid var(--ink); }
+      #about .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      #skills .skills-grid { grid-template-columns: 1fr 1fr; }
+      #projects .projects-grid { grid-template-columns: 1fr; }
+      #education .edu-grid { grid-template-columns: 1fr; }
+      #hackathons .hack-list { grid-template-columns: 1fr 1fr; }
+      #contact .contact-box { grid-template-columns: 1fr; }
+      .contact-left { border-right: none; border-bottom: 1px solid var(--ink); }
+      .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      #skills .skills-grid { grid-template-columns: 1fr; }
+      #hackathons .hack-list { grid-template-columns: 1fr; }
+      .masthead-meta { display: none; }
+    }
+
+    /* ── SCROLL REVEAL ────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="weather-bar">
-    <span>Kanpur, Uttar Pradesh, India · Est. 2022</span>
-    <span class="live-time" id="liveTime"></span>
-    <span>Open to Opportunities · Available Immediately</span>
-  </div>
-  <div class="masthead-main">
-    <div class="masthead-left">Vol. IV, No. 1<br>B.Tech C.S.E. · 2026<br>CGPA 6.7 / 10.0</div>
-    <div class="masthead-title">The Kartikey Kamal</div>
-    <div class="masthead-right">Java · MySQL · Web Dev<br>3 Hackathons · 1 Internship<br>kartikeykamal36@gmail.com</div>
-  </div>
-  <nav class="nav-strip">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#achievements">Hackathons</a>
-    <a href="#contact">Contact</a>
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-meta">
+      <span>Kanpur, Uttar Pradesh, India</span>
+      <span>Est. 2022</span>
+      <span>B.Tech Graduate · Open to Work</span>
+    </div>
+    <div class="masthead-title">The Kartikey Kamal Gazette</div>
+    <div class="masthead-sub">B.Tech C.S.E. · 2026 Graduate · Data Analyst &amp; AI/ML Enthusiast</div>
+    <div class="masthead-rule"></div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#hackathons">Hackathons</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
-</header>
 
-<main>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left reveal">
-    <div class="edition-label">Breaking</div>
-    <div class="hero-kicker">Kanpur Engineer Ready to Ship</div>
-    <h1 class="hero-headline">
-      Final-Year Dev<br>
-      Seeks to Build<br>
-      <em>Something Real</em>
-    </h1>
-    <p class="hero-deck">A Computer Science student with hands-on Java, database design, and full-stack experience — who has shipped working software, competed in three national hackathons, and is ready for the next challenge.</p>
-    <div class="byline">
-      <span>By</span>
-      <span class="byline-name" data-note="That's me.">Kartikey Kamal</span>
-      <span>·</span>
-      <span>Kanpur, India</span>
-    </div>
+  <!-- BREAKING BANNER -->
+  <div class="breaking-banner">
+    <span>✦ Breaking</span>
+    CS graduate turning data into decisions — actively seeking Data Analyst, ML &amp; GenAI roles
   </div>
 
-  <div class="vdivider"></div>
-
-  <div class="hero-center reveal rd1">
-    <div class="big-name">Kartikey</div>
-    <div class="big-name-sub">Developer · Engineer · Problem Solver</div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">3+</div>
-      <div class="hero-stat-l">Hackathons competed</div>
-      <div class="hero-stat-n">2+</div>
-      <div class="hero-stat-l">Tech confrences competed</div>
-      <div class="hero-stat-n">5+</div>
-      <div class="hero-stat-l">Workshops competed</div>
-      <div class="hero-stat-n">4+</div>
-      <div class="hero-stat-l">Projects competed</div>
-      <div class="hero-stat-n">15+</div>
-      <div class="hero-stat-l">Small Projects competed</div>
-    </div>
-  </div>
-
-  <div class="vdivider"></div>
-
-  <div class="hero-right reveal rd2">
-    <div class="skills-brief">
-      <div class="skills-brief-head">Core Competencies</div>
-      <ul>
-        <li>Core Java <span>Advanced</span></li>
-        <li>MySQL / JDBC <span>Advanced</span></li>
-        <li>OOP &amp; DSA <span>Strong</span></li>
-        <li>HTML / CSS / JS <span>Proficient</span></li>
-        <li>Git &amp; GitHub <span>Daily Use</span></li>
-        <li>Python <span>Intermediate</span></li>
-      </ul>
-    </div>
-    <div class="index-box">
-      <div class="index-box-head">Inside This Page</div>
-      <div class="index-item"><a href="#about">About Me</a><span class="dotline"></span><span class="index-pg">§1</span></div>
-      <div class="index-item"><a href="#skills">Tech Stack</a><span class="dotline"></span><span class="index-pg">§2</span></div>
-      <div class="index-item"><a href="#projects">Projects</a><span class="dotline"></span><span class="index-pg">§3</span></div>
-      <div class="index-item"><a href="#experience">Experience</a><span class="dotline"></span><span class="index-pg">§4</span></div>
-      <div class="index-item"><a href="#achievements">Hackathons</a><span class="dotline"></span><span class="index-pg">§5</span></div>
-      <div class="index-item"><a href="#contact">Contact</a><span class="dotline"></span><span class="index-pg">§6</span></div>
-    </div>
-    <br>
-    <div class="skills-brief">
-      <div class="skills-brief-head">Resume</div>
-      <ul>
-        <li><span><a href="https://github.com/kartikeykamal" target="_blank" style="color: rgb(226, 226, 236); ">Kartikey Kamal</a></span></li>  
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- PULL QUOTE BAR -->
-<div class="pull-bar reveal">
-  <div class="pull-stat">
-    <div class="pull-stat-n">2026</div>
-    <div class="pull-stat-l">Graduating</div>
-  </div>
-  <div class="pull-quote-wrap">
-    <blockquote>Passionate about problem-solving, clean code, and continuous learning in software development.</blockquote>
-  </div>
-  <div class="pull-stat">
-    <div class="pull-stat-n">1</div>
-    <div class="pull-stat-l">Internship completed</div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-head reveal">
-    <span class="section-head-title">§1 — About the Developer</span>
-    <div class="section-head-rule"></div>
-    <span class="section-head-num">Personal Profile</span>
-  </div>
-  <div class="about-grid">
-    <div class="about-col reveal rd1">
-      <p>Kartikey Kamal is a fourth-year Computer Science & Engineering undergraduate <span data-note="Kanpur, Uttar Pradesh"> Institute of Technology</span>, expected to graduate in 2026. With a strong foundation in object-oriented Java, Python, and relational database design, he has spent the past two years building applications that are functional, structured, and maintainable.</p>
-      <p>His internship in Java programming, along with hands-on experience in Python development, strengthened his understanding of how real-world and enterprise-grade systems are built — from JDBC connectivity, CRUD operations, and clean OOP architecture to problem-solving, scripting, and data-driven application development.</p>
-    </div>
-    <div class="vdivider-faint"></div>
-    <div class="about-col reveal rd2">
-      <p>Beyond coursework, Kartikey has competed in three national-level hackathons — including events hosted by IIITM Gwalior — where he developed and shipped tech-driven solutions under strict time pressure. These experiences sharpened both his instincts and his ability to collaborate under pressure.</p>
-      <p>He is equally comfortable on the frontend, having built a fully responsive portfolio website from scratch using HTML5, CSS3, and JavaScript.</p>
-      <div class="fact-box">
-        <div class="fact-box-head">■ Quick Facts</div>
-        <div class="fact-row"><span>Location</span><span class="fv">Kanpur, U.P.</span></div>
-        <div class="fact-row"><span>Degree</span><span class="fv">B.Tech C.S.E.</span></div>
-        <div class="fact-row"><span>CGPA</span><span class="fv">6.5 / 10.0</span></div>
-        <div class="fact-row"><span>Status</span><span class="fv" style="color:var(--red)">Open to Work</span></div>
-        <div class="fact-row"><span>Phone</span><span class="fv">+91 6393704440</span></div>
-      </div>
-    </div>
-    <div class="vdivider-faint"></div>
-    <div class="about-col reveal rd3">
-      <p>He attended technical workshops covering Git, GitHub, Artificial Intelligence, and modern development tools — staying current with the industry well beyond what the classroom demands.</p>
-      <p>Kartikey's work ethic is rooted in a simple belief: software should do exactly what it promises, reliably and clearly. He is currently seeking internship and full-time opportunities where he can contribute, grow, and build things that matter.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-head reveal">
-    <span class="section-head-title">§2 — Technical Stack</span>
-    <div class="section-head-rule"></div>
-    <span class="section-head-num">Tools &amp; Languages</span>
-  </div>
-  <div class="skills-broadsheet">
-    <div class="skill-cell reveal rd1">
-      <div class="sc-num">1</div>
-      <div class="sc-cat">Core</div>
-      <div class="sc-name">Core Java</div>
-      <div class="sc-items">
-        <div class="sc-item">OOP Principles</div>
-        <div class="sc-item">Multithreading</div>
-        <div class="sc-item">Exception Handling</div>
-        <div class="sc-item">Collections</div>
-      </div>
-    </div>
-    <div class="skill-cell reveal rd2">
-      <div class="sc-num">2</div>
-      <div class="sc-cat">Data</div>
-      <div class="sc-name">MySQL &amp; JDBC</div>
-      <div class="sc-items">
-        <div class="sc-item">CRUD Operations</div>
-        <div class="sc-item">Joins &amp; Aggregates</div>
-        <div class="sc-item">Normalization</div>
-        <div class="sc-item">Constraints &amp; Keys</div>
-      </div>
-    </div>
-    <div class="skill-cell reveal rd3">
-      <div class="sc-num">3</div>
-      <div class="sc-cat">Frontend</div>
-      <div class="sc-name">Web Dev</div>
-      <div class="sc-items">
-        <div class="sc-item">HTML5 &amp; CSS3</div>
-        <div class="sc-item">JavaScript (ES6)</div>
-        <div class="sc-item">Flexbox &amp; Grid</div>
-        <div class="sc-item">Responsive Design</div>
-      </div>
-    </div>
-    <div class="skill-cell reveal rd4">
-      <div class="sc-num">4</div>
-      <div class="sc-cat">Fundamentals</div>
-      <div class="sc-name">CS Concepts</div>
-      <div class="sc-items">
-        <div class="sc-item">Data Structures</div>
-        <div class="sc-item">Algorithms</div>
-        <div class="sc-item">SDLC</div>
-        <div class="sc-item">Debugging</div>
-      </div>
-    </div>
-    <div class="skill-cell reveal rd5">
-      <div class="sc-num">5</div>
-      <div class="sc-cat">Tools</div>
-      <div class="sc-name">Dev Tools</div>
-      <div class="sc-items">
-        <div class="sc-item">Git &amp; GitHub</div>
-        <div class="sc-item">VS Code</div>
-        <div class="sc-item">MySQL Workbench</div>
-        <div class="sc-item">IntelliJ IDEA</div>
-      </div>
-    </div>
-    <div class="skill-cell reveal rd6">
-      <div class="sc-num">6</div>
-      <div class="sc-cat">Also</div>
-      <div class="sc-name">Python</div>
-      <div class="sc-items">
-        <div class="sc-item">Scripting</div>
-        <div class="sc-item">Intermediate Level</div>
-        <div class="sc-item">Problem Solving</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-head reveal">
-    <span class="section-head-title">§3 — Selected Works</span>
-    <div class="section-head-rule"></div>
-    <span class="section-head-num">Projects · 2024–2025</span>
-  </div>
-  <div class="projects-broadsheet">
-    <div class="project-main">
-      <div class="project-feature reveal rd1">
-        <div class="proj-label">■ Featured Project · 2025</div>
-        <div class="proj-headline">Student Management System</div>
-        <p class="proj-deck">A fully functional Java console application implementing complete CRUD operations for managing students, courses, and enrolment records. Built on a normalised relational MySQL database with primary and foreign key constraints. Object-oriented modules for each entity keep the codebase clean and extensible. JDBC handles all database connectivity securely.</p>
-        <div class="proj-meta">
-          <span class="proj-tag">Core Java</span>
-          <span class="proj-tag">JDBC</span>
-          <span class="proj-tag">MySQL</span>
-          <span class="proj-tag">OOP</span>
-          <a href="https://github.com/kartikeykamal" target="_blank" class="proj-link">View on GitHub →</a>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid reveal">
+        <div class="hero-left">
+          <div class="hero-kicker">✦ Vol. IV · Feature Story</div>
+          <h1 class="hero-headline">
+            Turning data<br />
+            into decisions with <em>Python</em>
+          </h1>
+          <p class="hero-deck">
+            CS graduate from Kanpur who works with data — analysis, ML models, and GenAI tools built in Python. Pursuing a career as a Data Analyst / AI-ML practitioner.
+          </p>
+          <div class="hero-byline">By Kartikey Kamal · Kanpur, India · kartikeykamal36@gmail.com</div>
         </div>
-      </div>
-      <div class="project-feature reveal rd2">
-        <div class="proj-label">■ Web Project · 2024</div>
-        <div class="proj-headline">Nurture Paradise</div>
-        <p class="proj-deck">A fully responsive and user-centric web platform built to promote home gardening and sustainable living through smart digital assistance. Nurture Paradise helps users discover suitable plants based on their environment, access plantation guidance, manage biodegradable household waste, and get basic plant care support through an interactive and eco-friendly interface. Developed with a focus on accessibility, usability, and clean design, the project aims to make gardening simpler, more practical, and engaging for everyday users.</p>
-        <div class="proj-meta">
-          <span class="proj-tag">HTML5</span>
-          <span class="proj-tag">CSS3</span>
-          <span class="proj-tag">JavaScript</span>
-          <span class="proj-tag">Node.js</span>
-          <span class="proj-tag">Responsive</span>
-          <a href="https://nurture-paradise.onrender.com" target="_blank" class="proj-link">Live Demo →</a>
+        <div class="hero-right">
+          <div class="stats-grid">
+            <div class="stat-cell">
+              <div class="stat-num">12+</div>
+              <div class="stat-label">GitHub Projects</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num">3</div>
+              <div class="stat-label">Hackathons</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num">2026</div>
+              <div class="stat-label">Graduating</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num">∞</div>
+              <div class="stat-label">Curiosity</div>
+            </div>
+          </div>
+          <div class="hero-links">
+            <a href="mailto:kartikeykamal36@gmail.com" class="btn btn-filled">Hire Me</a>
+            <a href="https://drive.google.com/file/d/1LClBvSgofC7eptYDlE7q_cF0ic8ryms5/view?usp=sharing" class="btn" target="_blank">Download CV</a>
+            <a href="https://github.com/kartikeykamal" class="btn" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/kartikey-kamal-760147264" class="btn" target="_blank">LinkedIn</a>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="vdivider"></div>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-eyebrow">§1 — About the Developer <em>Personal Profile</em></div>
+      <div class="about-grid reveal">
+        <div>
+          <div class="ai-badge">Data Analyst · Python · AI/ML</div>
+          <p>
+            I'm a Computer Science graduate from Kanpur Institute of Technology (B.Tech, 2026). I work with data — cleaning it, analysing it, and building ML and GenAI models with Python to find answers in it.
+          </p>
+          <p>
+            I've shipped projects using Python and LLM APIs, including a study companion that generates personalised plans and a cold-email generator that reads resumes and writes outreach. I also code in Java and build web apps as secondary skills.
+          </p>
 
-    <div class="project-sidebar">
-      <div class="sidebar-ad reveal rd1">
-        <div class="ad-headline">"Available for hire — immediately."</div>
-        <div class="ad-body">Seeking internship or full-time roles in backend development, Java engineering, or full-stack positions. Fast learner. Ships clean code. Works well under pressure.</div>
-        <a href="mailto:kartikeykamal36@gmail.com" class="ad-cta">Enquire Now</a>
-      </div>
-      <div class="sidebar-ad reveal rd2" style="background:var(--ink);border-color:var(--ink);">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.45rem;letter-spacing:0.2em;color:rgba(245,240,232,0.3);display:block;margin-bottom:0.8rem;">ALSO ON THE WEB</div>
-        <div class="ad-headline" style="color:var(--paper);">Find the code on GitHub</div>
-        <div class="ad-body" style="color:rgba(245,240,232,0.6);">Browse repositories, contributions, and source code at github.com/kartikeykamal</div>
-        <a href="https://github.com/kartikeykamal" target="_blank" class="ad-cta" style="background:var(--paper);color:var(--ink);">Visit GitHub →</a>
+          <div class="pullquote">
+            <p>"Not just code — turning <em>data into decisions</em>."</p>
+          </div>
+        </div>
+        <div>
+          <div class="quick-facts">
+            <div class="quick-facts-header">■ Quick Facts</div>
+            <div class="fact-row"><span class="fact-label">Location</span><span class="fact-val">Kanpur, U.P.</span></div>
+            <div class="fact-row"><span class="fact-label">Degree</span><span class="fact-val">B.Tech C.S.E. (2026)</span></div>
+            <div class="fact-row"><span class="fact-label">Focus</span><span class="fact-val">Data &amp; AI/ML</span></div>
+            <div class="fact-row"><span class="fact-label">Status</span><span class="fact-val">Graduate · Open to Work</span></div>
+            <div class="fact-row"><span class="fact-label">Email</span><span class="fact-val" style="font-size:12px">kartikeykamal36@gmail.com</span></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-head reveal">
-    <span class="section-head-title">§4 — Experience &amp; Education</span>
-    <div class="section-head-rule"></div>
-    <span class="section-head-num">Career History</span>
-  </div>
-  <div class="exp-grid">
-    <div class="exp-col">
-      <div class="exp-entry reveal rd1">
-        <div class="exp-dateline">■ 2025 · Internship</div>
-        <div class="exp-role">Java Programming Intern</div>
-        <div class="exp-org">Intensive Java Internship Programme</div>
-        <div class="exp-body">
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-eyebrow">§2 — Technical Stack <em>Tools &amp; Languages</em></div>
+      <div class="skills-grid reveal">
+        <div class="skill-block featured">
+          <div class="skill-block-label">✦ Python · Data &amp; ML</div>
           <ul>
-            <li>Completed one-month intensive Java programme covering core concepts and practical implementation</li>
-            <li>Developed Java applications applying OOP principles across real-world scenarios</li>
-            <li>Implemented JDBC–MySQL connectivity to perform secure CRUD operations</li>
-            <li>Enhanced problem-solving skills through hands-on coding challenges and projects</li>
+            <li>Python · Pandas · NumPy</li>
+            <li>SQL · MySQL · Data Analysis</li>
+            <li>ML: Classification, Regression, scikit-learn</li>
+            <li>Gen AI / LLM Integration</li>
+            <li>Prompt Engineering</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-label">Java &amp; Backend</div>
+          <ul>
+            <li>Core Java · OOP</li>
+            <li>MySQL · JDBC</li>
+            <li>DSA &amp; Problem Solving</li>
+            <li>CRUD Systems</li>
+            <li>Git &amp; GitHub</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <div class="skill-block-label">Web Dev (Secondary)</div>
+          <ul>
+            <li>HTML5 / CSS3 / JS</li>
+            <li>React (learning)</li>
+            <li>Node.js · Express</li>
+            <li>REST APIs</li>
+            <li>Responsive Design</li>
           </ul>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="vdivider"></div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-eyebrow">§3 — Selected Works <em>Projects · 2024–2025</em></div>
+      <div class="projects-grid reveal">
 
-    <div class="exp-col">
-      <div class="exp-entry reveal rd2">
-        <div class="exp-dateline">■ 2022 – 2026 · Education</div>
-        <div class="exp-role">B.Tech — Computer Science &amp; Engineering</div>
-        <div class="exp-org">Kanpur Institute of Technology · CGPA 6.5 / 10</div>
-        <div class="exp-body">
-          <ul>
-            <li>Core coursework: DSA, OOP, DBMS, Operating Systems, Computer Networks</li>
-            <li>Attended workshops on Git, GitHub, Artificial Intelligence &amp; modern dev tools</li>
-            <li>Represented college at three national-level hackathons</li>
-          </ul>
+        <!-- Study Buddy -->
+        <div class="project-card featured-proj">
+          <div class="project-tag ai">✦ AI · Featured</div>
+          <div class="project-name">Study Buddy</div>
+          <p class="project-desc">
+            AI study companion using Python and the Gemini API. Generates personalised study plans and flashcards from syllabus data, with an AI tutor and progress tracking.
+          </p>
+          <div class="project-chips">
+            <span class="chip ai-chip">Python</span>
+            <span class="chip ai-chip">Gemini API</span>
+            <span class="chip">React</span>
+            <span class="chip">Firebase</span>
+          </div>
+          <a href="https://github.com/kartikeykamal/Study-Buddy" class="project-link" target="_blank">View on GitHub →</a>
         </div>
-      </div>
-      <div class="exp-entry reveal rd3">
-        <div class="exp-dateline">■ 2020 – 2021 · Education</div>
-        <div class="exp-role">Intermediate (Class XII)</div>
-        <div class="exp-org">Maharana Pratap Education Center · 69.2%</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- HACKATHONS -->
-<section id="achievements">
-  <div class="section-head reveal">
-    <span class="section-head-title">§5 — Hackathons &amp; Competitions</span>
-    <div class="section-head-rule"></div>
-    <span class="section-head-num">National Level</span>
-  </div>
-  <div class="hack-grid">
-    <div class="hack-cell reveal rd1">
-      <div class="hc-num">01</div>
-      <div class="hc-label">■ 2024 · Participant</div>
-      <div class="hc-name">IIITM Gwalior Hackathon</div>
-      <div class="hc-body">Applied real-world problem solving in a collaborative competitive environment hosted by IIITM Gwalior.</div>
-    </div>
-    <div class="hack-cell reveal rd2">
-      <div class="hc-num">02</div>
-      <div class="hc-label">■ National · Participant</div>
-      <div class="hc-name">Kriyeta 3.0</div>
-      <div class="hc-body">Competed in a national-level hackathon showcasing innovation and technical skills under time constraints.</div>
-    </div>
-    <div class="hack-cell reveal rd3">
-      <div class="hc-num">03</div>
-      <div class="hc-label">■ 2025 · Team Representative</div>
-      <div class="hc-name">Hacksagon 2025</div>
-      <div class="hc-body">Represented college team at IIITM Gwalior, developing creative tech-driven solutions as team lead.</div>
-    </div>
-  </div>
-</section>
+        <!-- Draftloom Mail -->
+        <div class="project-card featured-proj">
+          <div class="project-tag ai">✦ AI · Automation</div>
+          <div class="project-name">Draftloom Mail</div>
+          <p class="project-desc">
+            Python-driven automation that parses resumes and contact data, then uses Gemini to draft personalised cold emails for every contact — reviewed and sent via Gmail.
+          </p>
+          <div class="project-chips">
+            <span class="chip ai-chip">Python</span>
+            <span class="chip ai-chip">Gemini API</span>
+            <span class="chip">Gmail API</span>
+            <span class="chip">Node.js</span>
+          </div>
+          <a href="https://github.com/kartikeykamal/Draftloom-Mail" class="project-link" target="_blank">View on GitHub →</a>
+        </div>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-head reveal">
-    <span class="section-head-title">§6 — Get in Touch</span>
-    <div class="section-head-rule"></div>
-    <span class="section-head-num">Correspondence</span>
-  </div>
-  <div class="contact-grid">
-    <div class="contact-left reveal rd1">
-      <h2 class="contact-headline">Ready to<br><em>hire a developer</em><br>who ships?</h2>
-      <p class="contact-deck">I'm actively looking for internship and full-time roles in Java or full-stack development. If you have an opportunity — or just want to talk code — send a message. I respond promptly.</p>
-      <div class="contact-entries">
-        <a href="mailto:kartikeykamal36@gmail.com" class="contact-entry">
-          <span class="ce-label">Email</span>
-          <span class="ce-val">kartikeykamal36@gmail.com</span>
-        </a>
-        <a href="tel:+916393704440" class="contact-entry">
-          <span class="ce-label">Phone</span>
-          <span class="ce-val">+91 6393704440</span>
-        </a>
-        <a href="https://www.linkedin.com/in/kartikey-kamal-760147264" target="_blank" class="contact-entry">
-          <span class="ce-label">LinkedIn</span>
-          <span class="ce-val">kartikey-kamal-760147264</span>
-        </a>
-        <a href="https://github.com/kartikeykamal" target="_blank" class="contact-entry">
-          <span class="ce-label">GitHub</span>
-          <span class="ce-val">github.com/kartikeykamal</span>
-        </a>
+        <!-- Nurture Paradise -->
+        <div class="project-card">
+          <div class="project-tag web">Web · Secondary Skill</div>
+          <div class="project-name">Nurture Paradise</div>
+          <p class="project-desc">
+            A responsive plant-care platform matching plants to climate data and diagnosing diseases — a side web dev build outside my core data/AI work.
+          </p>
+          <div class="project-chips">
+            <span class="chip">HTML5 / CSS3</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">Firebase</span>
+            <span class="chip">Node.js</span>
+          </div>
+          <a href="https://nurture-paradise.onrender.com" class="project-link" target="_blank">Live Demo →</a>
+        </div>
+
+      </div>
+      <div style="margin-top:20px; text-align:center;">
+        <a href="https://github.com/kartikeykamal" class="project-link" target="_blank" style="font-size:11px;">View all 12+ projects on GitHub →</a>
       </div>
     </div>
+  </section>
 
-    <div class="vdivider"></div>
-
-    <div class="contact-right reveal rd2">
-      <div class="classified">
-        <div class="classified-head">Classifieds — Opportunities Sought</div>
-        <div class="classified-body">
-          DEVELOPER, final-year B.Tech, seeks internship or full-time role. Specialises in Core Java, JDBC, MySQL. Experienced in CRUD systems, OOP architecture, normalised database design. Available immediately after graduation May 2026. Willing to relocate. References on request. Contact: kartikeykamal36@gmail.com. Phone: +91 6393704440. Kanpur, U.P.
-          ——
-          ALSO AVAILABLE for freelance web development projects. HTML5, CSS3, JavaScript. Responsive, accessible, cross-browser. Fast turnaround. Reasonable rates. Portfolio: portfoliokartikeykamal.netlify.app
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-eyebrow">§4 — Education <em>Academic Record</em></div>
+      <div class="edu-grid reveal">
+        <div class="edu-card">
+          <div class="edu-year">2022 – 2026</div>
+          <div class="edu-title">B.Tech — Computer Science &amp; Engineering</div>
+          <div class="edu-inst">Kanpur Institute of Technology · CGPA 7.06 / 10</div>
+          <div class="edu-note">DSA, OOP, DBMS, OS, CN · Three national hackathons · AI &amp; Git workshops</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">2020 – 2021</div>
+          <div class="edu-title">Intermediate (Class XII)</div>
+          <div class="edu-inst">Maharana Pratap Education Center · 69.2%</div>
+          <div class="edu-note">Science stream — foundation for engineering</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">2018 – 2019</div>
+          <div class="edu-title">High School (Class X)</div>
+          <div class="edu-inst">Maharana Pratap Education Center · 68.0%</div>
+          <div class="edu-note">Early foundation in science &amp; mathematics</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-</main>
+  <!-- HACKATHONS -->
+  <section id="hackathons">
+    <div class="container">
+      <div class="section-eyebrow">§5 — Hackathons &amp; Competitions <em>National &amp; Online</em></div>
+      <div class="hack-list reveal">
+        <div class="hack-item">
+          <div class="hack-year">2024 · National</div>
+          <div class="hack-name">IIITM Gwalior</div>
+          <p class="hack-desc">Real-world problem solving in a competitive environment at one of India's premier tech institutions.</p>
+        </div>
+        <div class="hack-item">
+          <div class="hack-year">National · Participant</div>
+          <div class="hack-name">Kriyeta 3.0</div>
+          <p class="hack-desc">Showcased innovation and technical depth under strict time constraints at a national-level event.</p>
+        </div>
+        <div class="hack-item">
+          <div class="hack-year">2025 · Team Lead</div>
+          <div class="hack-name">Hacksagon 2025</div>
+          <p class="hack-desc">Represented college at IIITM Gwalior as team lead, building creative tech-driven solutions end-to-end.</p>
+        </div>
+        <div class="hack-item">
+          <div class="hack-year">Online · Multiple</div>
+          <div class="hack-name">Online Hackathons</div>
+          <p class="hack-desc">Participated in several online hackathons, building solutions remotely under timed sprints.</p>
+        </div>
+        <div class="hack-item">
+          <div class="hack-year">Ongoing</div>
+          <div class="hack-name">Coding &amp; Tech Quizzes</div>
+          <p class="hack-desc">Attended multiple coding and tech quizzes, sharpening fundamentals across DSA, Python, and CS concepts.</p>
+        </div>
+        <div class="hack-item">
+          <div class="hack-year">Workshops</div>
+          <div class="hack-name">Git, GitHub &amp; AI</div>
+          <p class="hack-desc">Attended technical workshops on Git, GitHub, Artificial Intelligence, and modern dev tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  <span class="footer-copy">© 2025 Kartikey Kamal · All Rights Reserved · Kanpur, India</span>
-  <span class="footer-motto">"Clean code. Reliable systems. Continuous learning."</span>
-  <span class="footer-copy">kartikeykamal36@gmail.com</span>
-</footer>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-eyebrow">§6 — Get in Touch <em>Correspondence</em></div>
+      <div class="contact-box reveal">
+        <div class="contact-left">
+          <h2 class="contact-headline">
+            Open to <em>Data &amp; AI</em><br />
+            roles.
+          </h2>
+          <p class="contact-deck">
+            If you're working with data and need someone who can analyse it and build with it — let's talk. Actively seeking internship and full-time roles for 2026.
+          </p>
+          <a href="mailto:kartikeykamal36@gmail.com" class="btn btn-filled">Send a Message</a>
+        </div>
+        <div class="contact-right">
+          <a href="https://drive.google.com/file/d/1LClBvSgofC7eptYDlE7q_cF0ic8ryms5/view?usp=sharing" class="contact-link" target="_blank">
+            <span class="contact-link-label">CV</span>
+            Download PDF
+          </a>
+          <a href="mailto:kartikeykamal36@gmail.com" class="contact-link">
+            <span class="contact-link-label">Email</span>
+            kartikeykamal36@gmail.com
+          </a>
+          <a href="tel:+916393704440" class="contact-link">
+            <span class="contact-link-label">Phone</span>
+            +91 6393704440
+          </a>
+          <a href="https://www.linkedin.com/in/kartikey-kamal-760147264" class="contact-link" target="_blank">
+            <span class="contact-link-label">LinkedIn</span>
+            kartikey-kamal-760147264
+          </a>
+          <a href="https://github.com/kartikeykamal" class="contact-link" target="_blank">
+            <span class="contact-link-label">GitHub</span>
+            github.com/kartikeykamal
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  function updateTime() {
-    const now = new Date();
-    const t = now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
-    const d = now.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
-    const el = document.getElementById('liveTime');
-    if (el) el.textContent = d + ' · ' + t;
-  }
-  updateTime(); setInterval(updateTime, 1000);
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2025 Kartikey Kamal · Kanpur, India</span>
+        <span class="footer-motto">"Turning data into decisions."</span>
+        <span>kartikeykamal36@gmail.com</span>
+      </div>
+    </div>
+  </footer>
 
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-  }, { threshold: 0.07 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
