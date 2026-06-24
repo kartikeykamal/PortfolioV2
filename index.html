@@ -609,6 +609,197 @@
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; }
     }
+    /* ── CHATBOT WIDGET ───────────────────────────── */
+    #kk-chat-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--paper);
+      border: 2px solid var(--ai-glow);
+      cursor: pointer;
+      font-size: 22px;
+      font-family: 'Playfair Display', Georgia, serif;
+      box-shadow: 0 4px 18px rgba(74,63,138,0.35);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 0;
+      overflow: visible;
+      animation: kk-pulse 3s ease-in-out infinite;
+    }
+    @keyframes kk-pulse {
+      0%, 100% { box-shadow: 0 4px 18px rgba(74,63,138,0.35), 0 0 0 0 rgba(74,63,138,0.25); }
+      50% { box-shadow: 0 4px 18px rgba(74,63,138,0.35), 0 0 0 8px rgba(74,63,138,0); }
+    }
+    #kk-chat-toggle:hover { transform: scale(1.07); box-shadow: 0 6px 24px rgba(74,63,138,0.5); animation: none; }
+    #kk-chat-toggle svg { display: block; overflow: visible; }
+    /* Typing indicator */
+    .kk-typing {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      max-width: 60px;
+      margin-bottom: 12px;
+    }
+    .kk-typing span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--ink-light);
+      animation: kk-bounce 1.2s infinite;
+    }
+    .kk-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .kk-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes kk-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    #kk-chat-window {
+      position: fixed;
+      bottom: 92px;
+      right: 24px;
+      width: 340px;
+      max-width: 90vw;
+      height: 460px;
+      max-height: 70vh;
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      z-index: 9999;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    #kk-chat-window.open { display: flex; }
+
+    .kk-chat-header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+    }
+    .kk-chat-header .kk-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      display: block;
+      margin-top: 2px;
+      font-weight: 400;
+    }
+    .kk-chat-close {
+      background: none;
+      border: none;
+      color: var(--paper);
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .kk-chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px;
+      background: var(--paper-dark);
+      scrollbar-width: thin;
+      scrollbar-color: var(--ai-glow) var(--paper-dark);
+    }
+    .kk-chat-body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .kk-chat-body::-webkit-scrollbar-track {
+      background: var(--paper-dark);
+    }
+    .kk-chat-body::-webkit-scrollbar-thumb {
+      background: var(--ai-glow);
+      border-radius: 2px;
+    }
+    .kk-chat-body::-webkit-scrollbar-thumb:hover {
+      background: #6c5ce7;
+    }
+    .kk-msg {
+      margin-bottom: 12px;
+      max-width: 88%;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .kk-msg.bot {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      padding: 8px 12px;
+      border-radius: 2px;
+    }
+    .kk-msg.user {
+      margin-left: auto;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8px 12px;
+      border-radius: 2px;
+      text-align: right;
+    }
+    .kk-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .kk-chip {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      border: 1px solid var(--ink);
+      padding: 4px 9px;
+      background: var(--paper);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .kk-chip:hover { background: var(--ink); color: var(--paper); }
+
+    .kk-chat-input-row {
+      display: flex;
+      border-top: 1.5px solid var(--ink);
+      background: var(--paper);
+    }
+    #kk-chat-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 10px 12px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+    }
+    #kk-chat-send {
+      border: none;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0 16px;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    #kk-chat-send:hover { background: var(--ai-glow); }
+
+    @media (max-width: 480px) {
+      #kk-chat-window { width: 88vw; right: 6vw; bottom: 86px; }
+    }
   </style>
 
   <meta name="description" content="Kartikey Kamal — Data Analyst, Python Developer & AI/ML enthusiast. B.Tech CSE graduate (2026) from Kanpur Institute of Technology, building with Python, Machine Learning, and Generative AI." />
@@ -984,6 +1175,341 @@
       });
     }, { threshold: 0.08 });
     reveals.forEach(el => observer.observe(el));
+  </script>
+  <!-- ── CHATBOT WIDGET ─────────────────────────── -->
+  <button id="kk-chat-toggle" title="Chat with Kartikey" aria-label="Open chat">
+    <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="28" fill="#1a1a18"/>
+      <circle cx="28" cy="28" r="26" fill="none" stroke="#4a3f8a" stroke-width="1.2" opacity="0.7"/>
+      <text x="10" y="35" font-size="22" font-family="Georgia,serif" font-weight="900" fill="#f5f2eb" letter-spacing="-1">KK</text>
+      <circle cx="43" cy="39" r="5" fill="#4a3f8a"/>
+      <text x="43" y="42.5" font-size="7" font-family="Georgia,serif" font-weight="700" fill="#f5f2eb" text-anchor="middle">?</text>
+    </svg>
+  </button>
+
+  <div id="kk-chat-window">
+    <div class="kk-chat-header">
+      <div>
+        Kartikey Kamal
+        <span class="kk-sub">Ask me about my work &amp; background</span>
+      </div>
+      <button class="kk-chat-close" id="kk-chat-close" aria-label="Close chat">✕</button>
+    </div>
+    <div class="kk-chat-body" id="kk-chat-body"></div>
+    <div class="kk-chat-input-row">
+      <input id="kk-chat-input" type="text" placeholder="Ask a question…" autocomplete="off" />
+      <button id="kk-chat-send">Send</button>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    /* ── KNOWLEDGE BASE ─────────────────────────────────────────────────────
+       Each entry: { kw: [...tokens], a: "answer", tags: [...topic-tags] }
+       kw tokens are matched as substrings of the lowercased query.
+       tags drive the "You might also ask about…" follow-up suggestions.
+    ─────────────────────────────────────────────────────────────────────── */
+    var KB = [
+      // ── GREETINGS / META
+      { tags:['meta'],
+        kw:['hi','hello','hey','sup','yo','good morning','good afternoon','howdy'],
+        a:"Hey, glad you're here! I'm Kartikey — ask me anything about my work, skills, or background. Or just tap one of the topics below to get started." },
+      { tags:['meta'],
+        kw:['who are you','what are you','bot','chatbot','are you ai','are you real','are you kartikey'],
+        a:"This is a scripted version of me — Kartikey — built right into my portfolio so you get quick answers even when I'm offline. No AI, just me anticipating your questions. 😄 Ask away!" },
+      { tags:['meta'],
+        kw:['thank','thanks','thx','ty'],
+        a:"Of course! Anything else you'd like to know about me?" },
+      { tags:['meta'],
+        kw:['bye','goodbye','see you','later','cya'],
+        a:"Thanks for stopping by — really means a lot. Feel free to email me at kartikeykamal36@gmail.com anytime. 👋" },
+
+      // ── INTRO / OVERVIEW
+      { tags:['about','skills','projects'],
+        kw:['introduce','introduction','tell me about yourself','about you','who is kartikey','about kartikey','describe yourself'],
+        a:"I'm Kartikey Kamal — a 2026 B.Tech CS grad from Kanpur Institute of Technology. Python is my weapon of choice, and I spend most of my time in data analysis, machine learning, and GenAI tooling. I've shipped three end-to-end projects — Study Buddy, Draftloom Mail, and Nurture Paradise — and competed in multiple national hackathons. Right now I'm actively looking for Data Analyst and AI/ML roles." },
+      { tags:['about','contact'],
+        kw:['summary','summarize','overview','quick intro','elevator pitch','in short','tldr','tl;dr','brief'],
+        a:"Quick version: Python-first developer and data enthusiast. B.Tech CSE with a 7.06 CGPA. Three shipped projects spanning AI, data, and web. Competed at IIITM Gwalior twice. Actively job-hunting for Data Analyst / AI-ML roles — let's connect!" },
+
+      // ── SKILLS
+      { tags:['skills','projects'],
+        kw:['skill','tech stack','technology','technologies','language','languages','tools','what can you do','what do you know','stack'],
+        a:"My core stack: Python (Pandas, NumPy, Matplotlib, scikit-learn), SQL/MySQL, and the Gemini API. On the side: Java, HTML/CSS/JS, React, Node.js, Firebase. I'm currently going deep on LangChain and agentic AI workflows." },
+      { tags:['skills'],
+        kw:['python','pandas','numpy','matplotlib','scikit'],
+        a:"Python is where I live. I use Pandas & NumPy for data wrangling, Matplotlib for visualisation, and scikit-learn for ML pipelines — classification, regression, clustering, the works. It's also the backbone of Study Buddy and Draftloom Mail." },
+      { tags:['skills'],
+        kw:['java','oop','object oriented'],
+        a:"Java is my secondary language — solid OOP foundations, data structures, and algorithmic problem-solving. I used it extensively during coursework and it sharpened how I think about code structure." },
+      { tags:['skills'],
+        kw:['sql','mysql','database','query','queries','crud'],
+        a:"I'm comfortable with MySQL — joins, aggregate functions, window functions, CTEs, normalisation, and prepared statements for secure, production-style queries." },
+      { tags:['projects','skills'],
+        kw:['ai','genai','generative ai','llm','gemini','langchain','large language','api integration'],
+        a:"GenAI is where I'm most excited right now. I've integrated the Gemini API into two live projects (Study Buddy and Draftloom Mail) and I'm actively learning LangChain to build more sophisticated agentic workflows." },
+      { tags:['skills'],
+        kw:['machine learning','ml','classification','regression','clustering','random forest','knn','decision tree','scikit-learn','model','modeling'],
+        a:"My ML toolkit covers classification, regression, clustering, decision trees, random forests, and KNN — all in scikit-learn, with proper evaluation: F1-scores, confusion matrices, cross-validation. I care about models that actually generalise." },
+      { tags:['projects','skills'],
+        kw:['web','frontend','react','html','css','javascript','node','firebase','firestore'],
+        a:"Web dev is a secondary skill for me — HTML5, CSS3, JavaScript, React, and Node.js on the frontend; Firebase Auth and Firestore on the backend (Nurture Paradise is the best example). Enough to ship complete, working products." },
+      { tags:['skills'],
+        kw:['power bi','tableau','visualization','dashboard','spss','ibm spss'],
+        a:"I'm familiar with Power BI for dashboards and IBM SPSS for statistical analysis — both relevant for Data Analyst roles and something I've touched in coursework." },
+      { tags:['skills'],
+        kw:['git','github','version control'],
+        a:"Git and GitHub are everyday tools for me — 12+ public repos, proper commit messages, README docs. You can browse everything at github.com/kartikeykamal." },
+
+      // ── PROJECTS
+      { tags:['projects'],
+        kw:['project','projects','built','build','portfolio','what have you made','what did you build','show me your work'],
+        a:"I've built three featured projects: (1) Study Buddy — AI study assistant with Gemini API, flashcards, mind maps, and a gamified XP system. (2) Draftloom Mail — Python tool that reads my resume + a contact list and sends personalised cold emails via Gemini + Gmail API. (3) Nurture Paradise — plant-care web app with real-time diagnosis, Firebase Auth, and Firestore. Plus 12+ repos on GitHub." },
+      { tags:['projects'],
+        kw:['study buddy','studybuddy','study app','ai study','ai tutor'],
+        a:"Study Buddy is my flagship project — a full-stack AI study assistant I built from scratch. It has a Gemini-powered tutor, flashcard generator, mock tests, mind-map visualiser, syllabus analyser, focus timer, and a gamified XP/streak system. Stack: Python, React, and the Gemini API." },
+      { tags:['projects'],
+        kw:['draftloom','draft loom','cold email','email generator','email campaign','email tool'],
+        a:"Draftloom Mail is a Python automation tool I built to solve a real problem — job hunting. It reads my resume + a CSV of recruiter contacts, then uses the Gemini API to write a personalised outreach email for each contact and sends it via the Gmail API. It's on GitHub." },
+      { tags:['projects'],
+        kw:['nurture','plant','plant care','nurture paradise','flora'],
+        a:"Nurture Paradise is a responsive web platform for plant care — real-time plant diagnosis and personalised care recommendations. I built the frontend with HTML/CSS/JS and the backend with Firebase Auth + Firestore. It's live and deployed." },
+      { tags:['projects'],
+        kw:['student management','student system','management system','crud project'],
+        a:"I also built a Student Management System — Python + MySQL with full CRUD operations on a normalised relational schema, and Pandas-based reporting layered on top. A solid demonstration of back-end fundamentals." },
+      { tags:['projects'],
+        kw:['favorite project','best project','proudest','proud of','most interesting'],
+        a:"Study Buddy, without question. It's the project where everything clicked — real Gemini API integration, an actually useful AI tutor, and a gamification system that makes studying feel less like a grind. It's the closest I've come to shipping something I'd use every day." },
+      { tags:['projects'],
+        kw:['live','deployed','production','online','url','link','website'],
+        a:"Nurture Paradise is live as a deployed web app. Study Buddy and Draftloom Mail are on GitHub. And you're on my portfolio right now — kartikeykamal.in." },
+
+      // ── EDUCATION
+      { tags:['education'],
+        kw:['education','college','degree','university','kanpur institute','kit','school','academic','b.tech','btech'],
+        a:"I did my B.Tech in Computer Science at Kanpur Institute of Technology, Kanpur — 2022 to 2026. CGPA: 7.06/10." },
+      { tags:['education'],
+        kw:['cgpa','gpa','marks','percentage','grade','score','result'],
+        a:"My CGPA is 7.06/10 (B.Tech CSE). Intermediate: 69.2%. High School: 68%. I'm more proud of what I've built than the numbers, but that's the breakdown." },
+
+      // ── HACKATHONS & ACHIEVEMENTS
+      { tags:['hackathons'],
+        kw:['hackathon','hackathons','competition','competed','iiitm','gwalior','kriyeta','hacksagon'],
+        a:"I've competed in IIITM Gwalior Hackathon 2024, Kriyeta 3.0 (national-level), and Hacksagon 2025 (IIITM Gwalior) — plus several online hackathons and coding quizzes. Each one pushed me to build fast and think on my feet." },
+      { tags:['hackathons','education'],
+        kw:['certificat','workshop','training','course','workshop'],
+        a:"Beyond hackathons, I've completed technical workshops on Git, GitHub, Artificial Intelligence, and modern developer tooling. Always looking to add to that list." },
+      { tags:['hackathons'],
+        kw:['achievement','accomplishment','award','win'],
+        a:"Three national-level hackathon participations (IIITM Gwalior ×2, Kriyeta 3.0), and three end-to-end Python/AI projects built from scratch. No trophies yet — but the reps are real." },
+
+      // ── SOFT / CAREER QUESTIONS
+      { tags:['about'],
+        kw:['strength','good at','strong at','best at','excel'],
+        a:"Going from a messy data problem to a working solution, end-to-end — cleaning, EDA, model building, and wiring in an LLM if the problem calls for it. Python is the thread through all of it, and I don't stop until something actually works." },
+      { tags:['about'],
+        kw:['weakness','improve','working on','learning now','next step','gap'],
+        a:"Honestly? Still deepening my ML theory beyond applied sklearn, and getting hands-on with LangChain, agentic AI patterns, and RAG pipelines. That's my current obsession." },
+      { tags:['contact'],
+        kw:['why hire','why should we','why you','why kartikey','convince me','make the case'],
+        a:"I ship. Every project on this page is production-style, not a tutorial clone — end-to-end Python, real API integrations, deployed or well-documented on GitHub. I'm also self-taught on GenAI tooling, which isn't common for a fresh grad. I pick things up fast and I care about the work." },
+      { tags:['contact'],
+        kw:['goal','career goal','future plan','5 years','aspiration','where do you see yourself'],
+        a:"Short term: a Data Analyst or AI/ML role where I'm working with real data pipelines and GenAI tools. Longer term: deep data science, and eventually building intelligent products of my own. I'm just getting started." },
+      { tags:['about'],
+        kw:['experience','years of experience','work experience','internship experience','fresher'],
+        a:"I'm a fresh grad (2026), so the experience lives in projects, hackathons, and coursework — but the projects are production-style, not toy examples. I've built and shipped real tools, and I'm ready to bring that energy to a team." },
+      { tags:['about'],
+        kw:['location','based in','live','city','kanpur','where are you from','where is kartikey'],
+        a:"I'm based in Kanpur, Uttar Pradesh, India. Open to relocation and remote opportunities." },
+
+      // ── CONTACT / AVAILABILITY
+      { tags:['contact'],
+        kw:['contact','email','reach','connect','get in touch','talk','message'],
+        a:"Best way to reach me: kartikeykamal36@gmail.com. You can also use the Contact section on this page. GitHub: github.com/kartikeykamal · LinkedIn: linkedin.com/in/kartikey-kamal-760147264 — I respond fast." },
+      { tags:['contact'],
+        kw:['linkedin'],
+        a:"My LinkedIn: linkedin.com/in/kartikey-kamal-760147264 — feel free to connect, I'd love to hear from you." },
+      { tags:['contact'],
+        kw:['github'],
+        a:"My GitHub: github.com/kartikeykamal — 12+ repos including Study Buddy, Draftloom Mail, and more. Worth a browse." },
+      { tags:['contact'],
+        kw:['phone','number','call','mobile'],
+        a:"My phone number is in the CV — grab it via the 'Download CV' button. I prefer email for first contact though." },
+      { tags:['contact'],
+        kw:['cv','resume','download','pdf'],
+        a:"Hit the 'Download CV' button in the hero or contact section — it has the full breakdown of my projects, skills, education, and contact info." },
+      { tags:['contact'],
+        kw:['available','availability','job','intern','internship','open to work','hiring','hire','recruit','looking for work','seeking'],
+        a:"Yes — actively open to Data Analyst, Python Developer, and AI/ML roles (internship or full-time). I just graduated in 2026 and I'm ready to hit the ground running. Email me at kartikeykamal36@gmail.com." },
+      { tags:['contact'],
+        kw:['salary','compensation','stipend','pay','ctc','package'],
+        a:"Happy to discuss compensation over email or a call once we're connected — no fixed number to drop here, but I'm reasonable and flexible." }
+    ];
+
+    /* ── TOPIC-CHIP CONFIG ──────────────────────────────────────────────── */
+    var CHIPS = [
+      { label: 'Skills',      q: 'What is your tech stack?' },
+      { label: 'Projects',    q: 'Tell me about your projects' },
+      { label: 'Education',   q: 'What is your education background?' },
+      { label: 'Hackathons',  q: 'What hackathons have you competed in?' },
+      { label: 'Contact',     q: 'How can I contact you?' }
+    ];
+
+    /* Map tags → chip labels for follow-up suggestions */
+    var TAG_TO_CHIP = { skills:'Skills', projects:'Projects', education:'Education', hackathons:'Hackathons', contact:'Contact', about:'Skills' };
+
+    var FALLBACKS = [
+      "Hmm, I don't have a ready answer for that — try rephrasing, or just email me at kartikeykamal36@gmail.com and I'll reply properly.",
+      "Not sure how to answer that one here. The CV or the contact section might help — or ping me directly at kartikeykamal36@gmail.com.",
+      "That's outside what I've scripted for this page. For anything specific, email me — kartikeykamal36@gmail.com is the fastest route."
+    ];
+    var fallbackIdx = 0;
+
+    /* ── DOM REFS ─────────────────────────────────────────────────────── */
+    var toggle  = document.getElementById('kk-chat-toggle');
+    var win     = document.getElementById('kk-chat-window');
+    var closeBtn= document.getElementById('kk-chat-close');
+    var body    = document.getElementById('kk-chat-body');
+    var input   = document.getElementById('kk-chat-input');
+    var sendBtn = document.getElementById('kk-chat-send');
+
+    /* ── HELPERS ──────────────────────────────────────────────────────── */
+    function scrollBottom() { body.scrollTop = body.scrollHeight; }
+
+    function addMsg(text, who) {
+      var div = document.createElement('div');
+      div.className = 'kk-msg ' + who;
+      div.textContent = text;
+      body.appendChild(div);
+      scrollBottom();
+      return div;
+    }
+
+    function showTyping() {
+      var dot = document.createElement('div');
+      dot.className = 'kk-typing';
+      dot.innerHTML = '<span></span><span></span><span></span>';
+      dot.id = 'kk-typing-indicator';
+      body.appendChild(dot);
+      scrollBottom();
+    }
+
+    function hideTyping() {
+      var dot = document.getElementById('kk-typing-indicator');
+      if (dot) dot.remove();
+    }
+
+    /* Initial quick-start chips (only shown once at welcome) */
+    function addChips(chipDefs, removeSelf) {
+      var row = document.createElement('div');
+      row.className = 'kk-chip-row';
+      chipDefs.forEach(function (c) {
+        var chip = document.createElement('span');
+        chip.className = 'kk-chip';
+        chip.textContent = c.label;
+        chip.onclick = function () {
+          if (removeSelf) row.remove();
+          handleInput(c.q || c.label);
+        };
+        row.appendChild(chip);
+      });
+      body.appendChild(row);
+      scrollBottom();
+    }
+
+    /* Follow-up chips based on matched tags */
+    function suggestFollowUps(tags) {
+      if (!tags || !tags.length) return;
+      var seen = {};
+      var suggestions = [];
+      tags.forEach(function(t) {
+        var label = TAG_TO_CHIP[t];
+        if (label && !seen[label]) { seen[label] = 1; suggestions.push({ label: '→ ' + label, q: CHIPS.find(function(c){ return c.label === label; }) ? CHIPS.find(function(c){ return c.label === label; }).q : label }); }
+      });
+      if (!suggestions.length) return;
+      var row = document.createElement('div');
+      row.className = 'kk-chip-row';
+      var hint = document.createElement('span');
+      hint.style.cssText = 'font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);display:block;width:100%;margin-bottom:4px;';
+      hint.textContent = 'You might also ask about:';
+      row.appendChild(hint);
+      suggestions.slice(0,3).forEach(function(s){
+        var chip = document.createElement('span');
+        chip.className = 'kk-chip';
+        chip.textContent = s.label;
+        chip.onclick = function(){ row.remove(); handleInput(s.q); };
+        row.appendChild(chip);
+      });
+      body.appendChild(row);
+      scrollBottom();
+    }
+
+    /* ── MATCHING ENGINE ──────────────────────────────────────────────── */
+    function tokenize(str) {
+      return str.toLowerCase().trim();
+    }
+
+    function scoreEntry(lower, entry) {
+      var score = 0;
+      entry.kw.forEach(function(k) {
+        if (lower.indexOf(k) !== -1) {
+          /* Longer keyword matches are worth more */
+          score += k.split(' ').length;
+        }
+      });
+      return score;
+    }
+
+    function findAnswer(q) {
+      var lower = tokenize(q);
+      var best = null, bestScore = 0;
+      KB.forEach(function(entry) {
+        var s = scoreEntry(lower, entry);
+        if (s > bestScore) { bestScore = s; best = entry; }
+      });
+      if (best && bestScore > 0) return { a: best.a, tags: best.tags };
+      /* Nothing matched */
+      var fb = FALLBACKS[fallbackIdx % FALLBACKS.length];
+      fallbackIdx++;
+      return { a: fb, tags: [] };
+    }
+
+    /* ── HANDLE USER INPUT ────────────────────────────────────────────── */
+    function handleInput(text) {
+      if (!text || !text.trim()) return;
+      input.value = '';
+      addMsg(text, 'user');
+      showTyping();
+      /* Simulate a brief thinking delay for realism */
+      var delay = 400 + Math.min(text.length * 8, 600);
+      setTimeout(function() {
+        hideTyping();
+        var result = findAnswer(text);
+        addMsg(result.a, 'bot');
+        suggestFollowUps(result.tags);
+      }, delay);
+    }
+
+    /* ── INIT ─────────────────────────────────────────────────────────── */
+    var inited = false;
+    function initChat() {
+      if (inited) return;
+      inited = true;
+      addMsg("Hey! I'm Kartikey — what would you like to know about my work or background?", 'bot');
+      addChips(CHIPS, true);
+    }
+
+    toggle.addEventListener('click', function () {
+      win.classList.toggle('open');
+      if (win.classList.contains('open')) { initChat(); input.focus(); }
+    });
+    closeBtn.addEventListener('click', function () { win.classList.remove('open'); });
+    sendBtn.addEventListener('click', function () { handleInput(input.value); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { handleInput(input.value); }
+    });
+  })();
   </script>
 </body>
 </html>
