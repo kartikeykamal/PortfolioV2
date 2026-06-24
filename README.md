@@ -1,7 +1,7 @@
 A fully responsive personal portfolio website built to showcase my **projects**, **technical skills**, **education**, and **experience** in a clean and modern way.
 
 ## 🌐 Live Website
-[https://portfoliov200.netlify.app](https://kartikeykamal.in/)
+https://kartikeykamal.in/
 
 ## 📌 About the Project
 This portfolio website is designed to represent my professional profile online. It highlights my background as a Computer Science student, my development skills, and the projects I have worked on.
